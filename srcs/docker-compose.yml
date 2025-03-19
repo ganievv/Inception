@@ -1,0 +1,8 @@
+# yamllint docker-compose.yml
+---
+name: inception
+
+services:
+  nginx:
+    build:
+      context: ./requirements/nginx
