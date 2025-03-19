@@ -1,0 +1,12 @@
+docker ps # list only running containers
+docker ps -a # list all containers (running; stopped; exited; failed to start)
+docker run <image> # pull an <image> and start it
+docker run -d -p 443:80 <image> # -d means detached mode and with -p we can specify a binding port
+docker run -d -p 443:80 --name nginx-latest nginx # --name option specify a container name
+docker pull <image>
+docker stop <container_id>
+docker start <container_id>
+docker logs <container_id>
+docker exec -it <container> /bin/bash # execute /bin/bash in a container;
+                                      # -i (--interactive) keeps STDIN open even if not attached;
+                                      # -t (--tty) allocates a pseudo-TTY
