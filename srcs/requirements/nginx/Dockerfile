@@ -6,11 +6,10 @@ FROM		debian:${CODE_VERSION}
 RUN		apt-get update -y && apt-get install -y nginx \
 		&& rm -rf /var/lib/apt/lists/*
 
-# do I need sudo for this ? :
-# touch /etc/nginx/conf.d/wordpress.conf
-# maybe I can do this in script file and COPY it here and launch
+COPY            wordpress.conf /etc/nginx/conf.d/
 
 ENTRYPOINT	["/usr/sbin/nginx", "-g", "daemon off;"]
 EXPOSE		443/tcp
+
 # docker build -t nginx:latest .
-# docker run -d -p 443:443 nginx:latest
+# docker run --network=inception --name=nginx  -d -p 443:443 nginx:latest
