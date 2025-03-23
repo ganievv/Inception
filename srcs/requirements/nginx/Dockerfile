@@ -12,4 +12,7 @@ ENTRYPOINT	["/usr/sbin/nginx", "-g", "daemon off;"]
 EXPOSE		443/tcp
 
 # docker build -t nginx:latest .
-# docker run --network=inception --name=nginx  -d -p 443:443 nginx:latest
+# docker run --network=inception \
+#  --name=nginx \
+#  --mount type=volume,src=wordpress-vol,dst=/wordpress,ro \
+#  -d -p 443:443 nginx:latest
