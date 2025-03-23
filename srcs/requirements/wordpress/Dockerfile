@@ -16,7 +16,10 @@ RUN     apt-get update -y && apt-get install -y wget unzip \
 ENTRYPOINT ["/bin/bash"]
 
 # docker build -t wordpress:latest .
-# docker run --network=inception --name=wordpress -it --rm wordpress:latest
+# docker run --network=inception \
+# --name=wordpress \
+# --mount type=volume,src=wordpress-vol,dst=/wordpress \
+# -it --rm wordpress:latest
 
 # - multiple containers can mount a file or directory containing
 #   the shared information, using a Docker volume;
