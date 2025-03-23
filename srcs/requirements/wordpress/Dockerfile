@@ -5,7 +5,7 @@ FROM	debian:${CODE_VERSION}
 WORKDIR	/
 
 RUN     apt-get update -y && apt-get install -y wget unzip \
-	&& wget -c -O wordpress.zip https://wordpress.org/latest.zip \
+	&& wget -c -N -O wordpress.zip https://wordpress.org/latest.zip \
 	&& unzip wordpress.zip \
 	&& rm wordpress.zip \
 	&& apt-get purge --auto-remove -y wget unzip \
