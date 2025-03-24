@@ -6,7 +6,7 @@ FROM		debian:${CODE_VERSION}
 RUN		apt-get update -y && apt-get install -y nginx \
 		&& rm -rf /var/lib/apt/lists/*
 
-COPY            wordpress.conf /etc/nginx/conf.d/
+COPY            nginx_wordpress.conf /etc/nginx/conf.d/
 
 ENTRYPOINT	["/usr/sbin/nginx", "-g", "daemon off;"]
 EXPOSE		443/tcp
