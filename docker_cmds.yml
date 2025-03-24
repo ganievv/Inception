@@ -16,3 +16,5 @@ docker exec -it <container> /bin/bash # execute /bin/bash in a container;
 docker network create inception
 docker network rm inception
 --network=inception # connects a container to the inception network
+
+docker image prune # delete dangling images
