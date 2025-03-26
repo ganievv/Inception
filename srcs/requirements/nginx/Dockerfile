@@ -2,8 +2,12 @@
 ARG		CODE_VERSION=bullseye
 FROM		debian:${CODE_VERSION}
 
-# rm -rf /var/lib/apt/lists/* - Remove cached package lists to reduce image size
-RUN		apt-get update -y && apt-get install -y nginx \
+RUN		apt-get update -y && apt-get install -y nginx openssl \
+		&& openssl req -x509 -newkey rsa:2048 -nodes \
+		-keyout key.pem \
+		-out cert.pem \
+		-days 365 \
+		-subj "/C=DE/ST=Baden-Wuerttemberg/L=Heilbronn/O=42/OU=Student/CN=sganiev.42.fr/emailAddress=sam.edu.post42@gmail.com" \
 		&& rm -rf /var/lib/apt/lists/*
 
 COPY            nginx_wordpress.conf /etc/nginx/conf.d/
@@ -16,3 +20,5 @@ EXPOSE		443/tcp
 #  --name=nginx \
 #  --mount type=volume,src=wordpress-vol,dst=/wordpress,ro \
 #  -d -p 443:443 nginx:latest
+
+#openssl verify -CAfile cert.pem cert.pem -> verify that the certificate is signed
