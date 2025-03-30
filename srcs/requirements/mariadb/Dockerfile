@@ -12,4 +12,4 @@ ENTRYPOINT  ["/init.sh"]
 
 # docker build -t mariadb:local .
 
-# docker run -it --network=inception --name=mariadb mariadb:local
+# docker run -d --network=inception --name=mariadb mariadb:local
