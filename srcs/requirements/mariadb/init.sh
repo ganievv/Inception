@@ -8,14 +8,21 @@ until mysqladmin ping --silent; do
     sleep 1
 done
 
+#Enter current password for root (enter for none): enter
+#Switch to unix_socket authentication [Y/n] n
+#Change the root password? [Y/n] n
+#Remove anonymous users? [Y/n] y
+#Disallow root login remotely? [Y/n] y
+#Remove test database and access to it? [Y/n] y
+#Reload privilege tables now? [Y/n] y
 mysql_secure_installation <<EOF
 
 n
 n
-Y
-Y
-Y
-Y
+y
+y
+y
+y
 EOF
 
 #stop mariadb deamon so that I can launch it in foreground
