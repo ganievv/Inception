@@ -28,6 +28,6 @@ EOF
 #stop mariadb deamon so that I can launch it in foreground
 mysqladmin -u root shutdown
 
-exec mariadbd-safe
+exec mariadbd
 
 # echo "& n n y y y y" | mysql_secure_installation
