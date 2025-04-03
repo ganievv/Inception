@@ -5,39 +5,57 @@ name: inception
 networks:
   inception-net:
 
+secrets:
+  credentials:
+    file: ../secrets/credentials.txt
+  db_password:
+    file: ../secrets/db_password.txt
+  db_root_password:
+    file: ../secrets/db_root_password.txt
+
 services:
 
   nginx:
-    env_file: .env
-    init: true  # add init process for forwording signals and proper cleanup
+    build:
+      context: ./requirements/nginx
     networks:
       - inception-net
+    init: true  # add init process for forwording signals and proper cleanup
     restart: on-failure
     depends_on:
       wordpress:
         condition: service_started  # replace with service_healthy ?
         restart: true
-    build:
-      context: ./requirements/nginx
+    env_file: .env
 
   wordpress:
-    env_file: .env
-    init: true
+    build:
+      context: ./requirements/wordpress
     networks:
       - inception-net
+    init: true
     restart: on-failure
     depends_on:
       mariadb:
         condition: service_started  # replace with service_healthy ?
         restart: true
-    build:
-      context: ./requirements/wordpress
+    secrets:
+      - db_password
+    env_file: .env
+    environment:
+      DB_PASSWORD_FILE: /run/secrets/db_password
 
   mariadb:
-    env_file: .env
-    init: true
-    networks:
-      - inception-net
-    restart: on-failure
     build:
       context: ./requirements/mariadb
+    networks:
+      - inception-net
+    init: true
+    restart: on-failure
+    secrets:  # maybe I need to specify them in build only
+      - db_password
+      - db_root_password
+    env_file: .env
+    environment:
+      DB_PASSWORD_FILE: /run/secrets/db_password
+      DB_ROOT_PASSWORD_FILE: /run/secrets/db_root_password
