@@ -2,7 +2,42 @@
 ---
 name: inception
 
+networks:
+  inception-net:
+
 services:
+
   nginx:
+    env_file: .env
+    init: true  # add init process for forwording signals and proper cleanup
+    networks:
+      - inception-net
+    restart: on-failure
+    depends_on:
+      wordpress:
+        condition: service_started  # replace with service_healthy ?
+        restart: true
     build:
       context: ./requirements/nginx
+
+  wordpress:
+    env_file: .env
+    init: true
+    networks:
+      - inception-net
+    restart: on-failure
+    depends_on:
+      mariadb:
+        condition: service_started  # replace with service_healthy ?
+        restart: true
+    build:
+      context: ./requirements/wordpress
+
+  mariadb:
+    env_file: .env
+    init: true
+    networks:
+      - inception-net
+    restart: on-failure
+    build:
+      context: ./requirements/mariadb
