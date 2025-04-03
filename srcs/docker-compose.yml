@@ -13,11 +13,23 @@ secrets:
   db_root_password:
     file: ../secrets/db_root_password.txt
 
+volumes:
+  wordpress-vol:
+    driver: local
+    driver_opts:
+      type: none
+      o: bind
+      device: /home/sganiev/data/wordpress
+
 services:
 
   nginx:
     build:
       context: ./requirements/nginx
+    ports:
+      - "443:443"
+    volumes:
+      - wordpress-vol:/wordpress:ro
     networks:
       - inception-net
     init: true  # add init process for forwording signals and proper cleanup
@@ -31,6 +43,8 @@ services:
   wordpress:
     build:
       context: ./requirements/wordpress
+    volumes:
+      - wordpress-vol:/wordpress
     networks:
       - inception-net
     init: true
