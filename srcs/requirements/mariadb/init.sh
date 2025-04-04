@@ -4,7 +4,7 @@
 mariadbd-safe &
 
 until mysqladmin ping --silent; do
-    echo "⏳ Waiting for MariaDB to be ready..."
+    echo "Waiting for MariaDB to be ready..."
     sleep 1
 done
 
@@ -23,6 +23,26 @@ y
 y
 y
 y
+EOF
+
+#create an administrative user
+
+DB_ROOT_PASSWORD=$(cat $DB_ROOT_PASSWORD_FILE)
+
+mariadb <<EOF
+CREATE USER IF NOT EXISTS '${DB_ROOT_USER}'@'%' IDENTIFIED BY '${DB_ROOT_PASSWORD}';
+GRANT ALL ON *.* TO '${DB_ROOT_USER}'@'%';
+FLUSH PRIVILEGES;
+EOF
+
+#create a regular user for wordpress
+
+DB_USER_PASSWORD=$(cat $DB_PASSWORD_FILE)
+
+mariadb <<EOF
+CREATE USER IF NOT EXISTS '${DB_USER}'@'%' IDENTIFIED BY '${DB_USER_PASSWORD}';
+GRANT ALL ON *.* TO '${DB_USER}'@'%';
+FLUSH PRIVILEGES;
 EOF
 
 #stop mariadb deamon so that I can launch it in foreground
