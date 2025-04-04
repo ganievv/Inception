@@ -15,6 +15,6 @@ down:
 	docker compose -f ./srcs/docker-compose.yml down
 
 cleanup: down
-	./docker-cleanup.sh
+	-./docker-cleanup.sh
 
 .PHONY: all ps logs down cleanup
