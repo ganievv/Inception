@@ -14,6 +14,7 @@ RUN     apt-get update -y && apt-get install -y wget unzip php7.4-fpm \
 	&& mkdir -p /run/php && chown -R www-data:www-data /run/php
 
 COPY	fpm_wordpress.conf /etc/php/7.4/fpm/pool.d/
+COPY	wp-config.php /wordpress/
 
 ENTRYPOINT ["php-fpm7.4", "-F"]
 
