@@ -5,13 +5,16 @@ all: $(NAME)
 $(NAME):
 	docker compose -f ./srcs/docker-compose.yml up --build -d
 
-ls:
+ps:
 	docker compose -f ./srcs/docker-compose.yml ps && echo -e "\n\n" && docker ps
 
-stop:
+logs:
+	docker compose -f ./srcs/docker-compose.yml logs
+
+down:
 	docker compose -f ./srcs/docker-compose.yml down
 
-cleanup: stop
+cleanup: down
 	./docker-cleanup.sh
 
-.PHONY: all stop cleanup ls
+.PHONY: all ps logs down cleanup
