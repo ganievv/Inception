@@ -17,4 +17,9 @@ down:
 cleanup: down
 	-./docker-cleanup.sh
 
-.PHONY: all ps logs down cleanup
+rmvolumes:
+	sudo rm -rf /home/sganiev/data/wordpress-vol/*
+
+re: cleanup all
+
+.PHONY: all ps logs down cleanup rmvolumes re
