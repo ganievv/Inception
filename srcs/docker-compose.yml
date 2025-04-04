@@ -19,7 +19,7 @@ volumes:
     driver_opts:
       type: none
       o: bind
-      device: /home/sganiev/data
+      device: /home/sganiev/data/wordpress-vol
 
 services:
 
