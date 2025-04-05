@@ -35,13 +35,14 @@ GRANT ALL ON *.* TO '${DB_ROOT_USER}'@'%';
 FLUSH PRIVILEGES;
 EOF
 
-#create a regular user for wordpress
+#create the wordpress  database and a regular user
 
 DB_USER_PASSWORD=$(cat $DB_PASSWORD_FILE)
 
 mariadb <<EOF
+CREATE DATABASE IF NOT EXISTS \`${DB_NAME}\`;
 CREATE USER IF NOT EXISTS '${DB_USER}'@'%' IDENTIFIED BY '${DB_USER_PASSWORD}';
-GRANT ALL ON *.* TO '${DB_USER}'@'%';
+GRANT ALL PRIVILEGES  ON \`${DB_NAME}\`.* TO '${DB_USER}'@'%';
 FLUSH PRIVILEGES;
 EOF
 
