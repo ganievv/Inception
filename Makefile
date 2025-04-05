@@ -8,7 +8,7 @@ $(NAME):
 	docker compose -f ./srcs/docker-compose.yml up --build -d
 
 ps:
-	docker compose -f ./srcs/docker-compose.yml ps && echo -e "\n\n" && docker ps
+	docker compose -f ./srcs/docker-compose.yml ps && echo && echo && docker ps
 
 logs:
 	docker compose -f ./srcs/docker-compose.yml logs
