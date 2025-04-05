@@ -3,6 +3,8 @@ NAME	:= inception
 all: $(NAME)
 
 $(NAME):
+	mkdir -p /home/sganiev/data/mariadb-vol
+	mkdir -p /home/sganiev/data/wordpress-vol
 	docker compose -f ./srcs/docker-compose.yml up --build -d
 
 ps:
@@ -14,12 +16,12 @@ logs:
 down:
 	docker compose -f ./srcs/docker-compose.yml down
 
-cleanup: down
-	-./docker-cleanup.sh
-
 rmvolumes:
-	sudo rm -rf /home/sganiev/data/wordpress-vol/*
+	sudo rm -rf /home/sganiev/data/
+
+cleanup: down rmvolumes
+	-./docker-cleanup.sh
 
 re: cleanup all
 
-.PHONY: all ps logs down cleanup rmvolumes re
+.PHONY: all ps logs down rmvolumes cleanup re
