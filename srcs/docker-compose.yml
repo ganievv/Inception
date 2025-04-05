@@ -20,6 +20,12 @@ volumes:
       type: none
       o: bind
       device: /home/sganiev/data/wordpress-vol
+  mariadb-vol:
+    driver: local
+    driver_opts:
+      type: none
+      o: bind
+      device: /home/sganiev/data/mariadb-vol
 
 services:
 
@@ -62,6 +68,8 @@ services:
   mariadb:
     build:
       context: ./requirements/mariadb
+    volumes:
+      - mariadb-vol:/var/lib/mysql
     networks:
       - inception-net
     init: true
