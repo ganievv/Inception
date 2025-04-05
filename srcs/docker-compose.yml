@@ -74,7 +74,7 @@ services:
       DB_PASSWORD_FILE: /run/secrets/db_password
       DB_ROOT_PASSWORD_FILE: /run/secrets/db_root_password
     healthcheck:
-      test: ["CMD", "test", "-f", "/IS_HEALTHY.txt"]
+      test: ["CMD-SHELL", "test -f /IS_HEALTHY.txt && mysqladmin ping --silent"]
       interval: 10s
       timeout: 3s
       retries: 10
