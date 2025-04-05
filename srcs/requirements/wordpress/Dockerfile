@@ -16,6 +16,8 @@ RUN     apt-get update -y && apt-get install -y wget unzip php7.4-fpm php7.4-mys
 COPY	fpm_wordpress.conf /etc/php/7.4/fpm/pool.d/
 COPY	wp-config.php /wordpress/
 
+EXPOSE  9000
+
 ENTRYPOINT ["php-fpm7.4", "-F"]
 
 # docker build -t wordpress:latest .
