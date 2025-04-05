@@ -4,7 +4,7 @@ FROM	debian:${CODE_VERSION}
 
 WORKDIR	/
 
-RUN     apt-get update -y && apt-get install -y wget unzip php7.4-fpm \
+RUN     apt-get update -y && apt-get install -y wget unzip php7.4-fpm php7.4-mysql \
 	&& wget -c -N -O wordpress.zip https://wordpress.org/latest.zip \
 	&& unzip wordpress.zip \
 	&& rm wordpress.zip \
