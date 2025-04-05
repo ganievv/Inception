@@ -8,6 +8,8 @@ ADD         init.sh /
 RUN         apt-get update -y && apt-get install -y mariadb-server mariadb-client procps \
 	    && chmod u+x /init.sh
 
+RUN	    sed -i 's/^bind-address\s*=.*/bind-address = 0.0.0.0/' /etc/mysql/mariadb.conf.d/50-server.cnf
+
 ENTRYPOINT  ["/init.sh"]
 
 # docker build -t mariadb:local .
