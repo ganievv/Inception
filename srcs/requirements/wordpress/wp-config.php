@@ -5,11 +5,6 @@ $db_host = getenv('DB_HOST');
 $db_user = getenv('DB_USER');
 $db_password_file = getenv('DB_PASSWORD_FILE');
 
-echo "DB_NAME=$db_name" . PHP_EOL;
-echo "DB_HOST=$db_host" . PHP_EOL;
-echo "DB_USER=$db_user" . PHP_EOL;
-echo "DB_PASSWORD_FILE=$db_password_file" . PHP_EOL;
-
 if (!$db_name || !$db_user || !$db_password_file || !$db_host) {
 	die("error: missing env var: DB_NAME, DB_HOST, DB_USER or DB_PASSWORD_FILE");
 }
