@@ -51,7 +51,7 @@ services:
     restart: on-failure
     depends_on:
       mariadb:
-        condition: service_started  # replace with service_healthy ?
+        condition: service_healthy
         restart: true
     secrets:
       - db_password
@@ -73,3 +73,9 @@ services:
     environment:
       DB_PASSWORD_FILE: /run/secrets/db_password
       DB_ROOT_PASSWORD_FILE: /run/secrets/db_root_password
+    healthcheck:
+      test: ["CMD", "test", "-f", "/IS_HEALTHY.txt"]
+      interval: 10s
+      timeout: 3s
+      retries: 10
+      start_period: 40s
