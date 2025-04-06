@@ -4,14 +4,15 @@ FROM	debian:${CODE_VERSION}
 
 WORKDIR	/
 
-RUN     apt-get update -y && apt-get install -y wget unzip php7.4-fpm php7.4-mysql \
-	&& wget -c -N -O wordpress.zip https://wordpress.org/latest.zip \
-	&& unzip wordpress.zip \
-	&& rm wordpress.zip \
-	&& apt-get purge --auto-remove -y wget unzip \
-	&& apt-get clean \
-	&& rm -rf /var/lib/apt/lists/* \
-	&& mkdir -p /run/php && chown -R www-data:www-data /run/php
+RUN		apt-get update -y && apt-get install -y wget unzip php7.4-fpm php7.4-mysql \
+		php7.4-curl php7.4-gd php7.4-mbstring php7.4-xml php7.4-zip php7.4-bcmath \
+		&& wget -c -N -O wordpress.zip https://wordpress.org/latest.zip \
+		&& unzip wordpress.zip \
+		&& rm wordpress.zip \
+		&& apt-get purge --auto-remove -y wget unzip \
+		&& apt-get clean \
+		&& rm -rf /var/lib/apt/lists/* \
+		&& mkdir -p /run/php && chown -R www-data:www-data /run/php
 
 COPY	fpm_wordpress.conf /etc/php/7.4/fpm/pool.d/
 COPY	wp-config.php /wordpress/
