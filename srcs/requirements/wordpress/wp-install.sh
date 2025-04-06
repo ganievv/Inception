@@ -20,4 +20,6 @@ if ! wp core is-installed --path=/wordpress --allow-root ; then
 	--allow-root
 fi
 
+chown -R www-data:www-data /wordpress
+
 exec php-fpm7.4 -F
