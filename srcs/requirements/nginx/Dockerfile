@@ -1,8 +1,8 @@
 # syntax=docker/dockerfile:1
 ARG		CODE_VERSION=bullseye
-FROM		debian:${CODE_VERSION}
+FROM	debian:${CODE_VERSION}
 
-WORKDIR		/etc/ssl/private/
+WORKDIR	/etc/ssl/private/
 
 RUN		apt-get update -y && apt-get install -y nginx openssl \
 		&& openssl req -x509 -newkey rsa:2048 -nodes \
@@ -12,12 +12,13 @@ RUN		apt-get update -y && apt-get install -y nginx openssl \
 		-subj "/C=DE/ST=Baden-Wuerttemberg/L=Heilbronn/O=42/OU=Student/CN=sganiev.42.fr/emailAddress=sam.edu.post42@gmail.com" \
 		&& rm -rf /var/lib/apt/lists/*
 
-WORKDIR		/etc/nginx/
+WORKDIR	/etc/nginx/
 
-COPY            nginx_wordpress.conf conf.d/
+COPY	nginx_wordpress.conf conf.d/
+
+EXPOSE	443/tcp
 
 ENTRYPOINT	["/usr/sbin/nginx", "-g", "daemon off;"]
-EXPOSE		443/tcp
 
 # docker build -t nginx:latest .
 # docker run --network=inception \
