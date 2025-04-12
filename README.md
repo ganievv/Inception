@@ -89,6 +89,14 @@ All containers are configured to restart automatically in case of failure. The p
       -	wp_password.txt - contains the password for the WordPress user;
       -	wp_root_password.txt - contains the root password for the WordPress service.
 
+4.	**Update `/etc/hosts`:**
+   - Important: Before proceeding, add an entry to your `/etc/hosts` file to map your custom domain name to your local IP address. For instance, if your `.env` file specifies `DOMAIN_NAME=sganiev.42.fr`, add the      following line:
+
+      ```/etc/hosts
+     127.0.0.1   sganiev.42.fr
+     ```
+     This ensures that your system can correctly resolve your custom domain when accessing the services.
+
 5. **Build:**
 
    - Simply run the provided Makefile to build your images and start your containers:
@@ -96,7 +104,6 @@ All containers are configured to restart automatically in case of failure. The p
      ```bash
      make
      ```
-  
      The `Makefile` is responsible for triggering the build of Docker images, configuration of volumes, network, and starting the entire infrastructure via `docker-compose`.
 
 ---
